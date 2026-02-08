@@ -1,0 +1,57 @@
+<link href="/FinalPhP/public/css/bootstrap.min.css" rel="stylesheet">
+
+<?php require_once __DIR__ . '/header.php'; ?>
+
+<?php
+    $errors = $_SESSION['suscribete_errors'] ?? null;
+    $success = $_SESSION['suscribete_success'] ?? null;
+    unset($_SESSION['suscribete_errors'], $_SESSION['suscribete_success']);
+?>
+
+<main class="d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="container" style="max-width: 500px;">
+        <?php if (!empty($errors)): ?>
+            <?php foreach ($errors as $err): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?=htmlspecialchars($err)?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <?php if (!empty($success)): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?=htmlspecialchars($success)?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center mb-4">Suscríbete para recibir nuestras novedades</h4>
+                <form action="/FinalPhP/controller/suscripcion_controller.php" method="POST">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="privacidad" id="privacidad" required>
+                        <label class="form-check-label" for="privacidad">
+                            Acepto la política de privacidad
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="/FinalPhP/public/js/bootstrap.bundle.min.js"></script>
+<?php require_once __DIR__ . '/footer.php'; ?>
+
