@@ -1,5 +1,5 @@
 <?php
-    // Configuración segura de sesión (inclúyelo antes de cualquier salida)
+    // ConfiguraciÃ³n segura de sesiÃ³n (inclÃºyelo antes de cualquier salida)
     ini_set('session.cookie_httponly', 1);
     ini_set('session.use_strict_mode', 1);
     if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {

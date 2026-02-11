@@ -1,26 +1,37 @@
 <?php
 require_once __DIR__ . '/../config/bd.php';
 
-$id = $_GET['id'] ?? null;
-if (!$id) { http_response_code(400); exit('ID no proporcionado'); }
+// Validar ID
+if (!isset($_GET['id'])) {
+    http_response_code(400);
+    die('ID no proporcionado.');
+}
 
-$stmt = $pdo->prepare("SELECT imagen, mime FROM recetas WHERE id = ?");
+$id = intval($_GET['id']);
+
+// Consulta preparada para obtener la imagen
+$stmt = $pdo->prepare('SELECT imagen, mime FROM recetas WHERE id = ?');
 $stmt->execute([$id]);
-$data = $stmt->fetch();
+$result = $stmt->fetch();
 
-if (!$data || !$data['imagen']) {
-    header("Content-Type: image/jpeg");
-    readfile(__DIR__ . "/img/default.jpg");
-    exit;
+if (!$result || empty($result['imagen'])) {
+    http_response_code(404);
+    die('Imagen no encontrada.');
 }
 
-// Detectar tipo automáticamente si MIME es incorrecto
-$mime = $data['mime'];
-if ($mime === 'img' || !$mime) {
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $mime = $finfo->buffer($data['imagen']);
+$imageData = $result['imagen'];
+$mimeType = $result['mime'] ?? null;
+
+if (empty($mimeType)) {
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_buffer($finfo, $imageData);
+    finfo_close($finfo);
 }
 
-header("Content-Type: " . $mime);
-echo $data['imagen'];
+header('Content-Type: ' . $mimeType);
+header('Content-Length: ' . strlen($imageData));
+header('Cache-Control: public, max-age=3600');
+
+echo $imageData;
+exit;
 ?>

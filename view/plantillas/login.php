@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../../config/base.php'; ?>
 <?php
     require_once __DIR__ . '/../../config/session.php';
     require_once __DIR__ . '/../../config/auth.php';
@@ -12,7 +13,7 @@
         $usuario = trim($_POST['usuario'] ?? '');
         $password = $_POST['password'] ?? '';
         if (loginUser($usuario, $password)) {
-            header('Location: /FinalPhP/index.php');
+            header('Location: ' . BASE_URL . '/index.php');
             exit;
         } else {
             $message = 'Usuario o contraseña incorrectos';
@@ -20,7 +21,7 @@
     }
 ?>
 
-<link href="/FinalPhP/public/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" rel="stylesheet">
 
 <?php require_once __DIR__ . '/header.php'; ?>
 
@@ -53,12 +54,12 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-3">Entrar</button>
-                    <p class="text-center small text-muted">¿No tienes cuenta? <a href="/FinalPhP/view/plantillas/register.php">Regístrate</a></p>
+                    <p class="text-center small text-muted">¿No tienes cuenta? <a href="<?= BASE_URL ?>/view/plantillas/register.php">Regístrate</a></p>
                 </form>
             </div>
         </div>
     </div>
 </main>
 
-<script src="/FinalPhP/public/js/bootstrap.bundle.min.js"></script>
+<script src="<?= BASE_URL ?>/public/js/bootstrap.bundle.min.js"></script>
 <?php require_once __DIR__ . '/footer.php'; ?>

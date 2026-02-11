@@ -1,3 +1,4 @@
+<?php require_once __DIR__ . '/../../config/base.php'; ?>
 <?php
 require_once __DIR__ . '/../../config/session.php';
 require_once __DIR__ . '/../../config/auth.php';
@@ -32,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $insert = $pdo->prepare('INSERT INTO usuarios (nombre, password) VALUES (?, ?)');
             $insert->execute([$usuario, $hash]);
-            header('Location: /FinalPhP/view/login.php?registered=1');
+            header('Location: ' . BASE_URL . '/view/plantillas/login.php?registered=1');
             exit;
         }
     }
 }
 ?>
-<link href="/FinalPhP/public/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" rel="stylesheet">
 
 <?php require_once __DIR__ . '/header.php'; ?>
 
@@ -55,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="card shadow">
             <div class="card-body p-4">
                 <h4 class="card-title text-center mb-4">Registro</h4>
-                <form action="/FinalPhP/view/plantillas/register.php" method="POST">
+                <form action="<?= BASE_URL ?>/view/plantillas/register.php" method="POST">
                     <div class="mb-3">
                         <label for="usuario" class="form-label">Nombre de Usuario:</label>
                         <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Usuario (solo letras, min 3)" required value="<?=htmlspecialchars($_POST['usuario'] ?? '')?>">
@@ -73,12 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100 mb-3">Registrarme</button>
-                    <p class="text-center small text-muted">¿Ya tienes cuenta? <a href="/FinalPhP/view/plantillas/login.php">Inicia sesión</a></p>
+                    <p class="text-center small text-muted">¿Ya tienes cuenta? <a href="<?= BASE_URL ?>/view/plantillas/login.php">Inicia sesión</a></p>
                 </form>
             </div>
         </div>
     </div>
 </main>
 
-<script src="/FinalPhP/public/js/bootstrap.bundle.min.js"></script>
+<script src="<?= BASE_URL ?>/public/js/bootstrap.bundle.min.js"></script>
 <?php require_once __DIR__ . '/footer.php'; ?>
+
+

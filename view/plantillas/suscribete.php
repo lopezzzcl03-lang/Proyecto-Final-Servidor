@@ -1,4 +1,5 @@
-<link href="/FinalPhP/public/css/bootstrap.min.css" rel="stylesheet">
+<?php require_once __DIR__ . '/../../config/base.php'; ?>
+<link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" rel="stylesheet">
 
 <?php require_once __DIR__ . '/header.php'; ?>
 
@@ -27,7 +28,7 @@
         <div class="card shadow">
             <div class="card-body p-4">
                 <h4 class="card-title text-center mb-4">Suscríbete para recibir nuestras novedades</h4>
-                <form action="/FinalPhP/controller/suscripcion_controller.php" method="POST">
+                <form action="<?= BASE_URL ?>/controller/suscripcion_controller.php" method="POST">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -52,6 +53,7 @@
     </div>
 </main>
 
-<script src="/FinalPhP/public/js/bootstrap.bundle.min.js"></script>
+<script src="<?= BASE_URL ?>/public/js/bootstrap.bundle.min.js"></script>
 <?php require_once __DIR__ . '/footer.php'; ?>
+
 
