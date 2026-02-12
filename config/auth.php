@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/base.php';
 require_once __DIR__ . '/bd.php';
 require_once __DIR__ . '/session_counter.php';
@@ -34,15 +34,44 @@ function loginUser(string $username, string $password): bool {
 }
 
 function logoutUser(): void {
-    // borrar cookie "remember" si la hubiese (placeholder)
+    $isHttps =
+        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+        (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+
+    // Borrar cookie "remember" si existe.
     if (isset($_COOKIE['remember'])) {
-        setcookie('remember', '', time() - 3600, '/');
+        setcookie('remember', '', time() - 3600, '/', '', $isHttps, true);
     }
 
-    // destruir sesion
+    // Limpiar y destruir sesion.
     $_SESSION = [];
-    session_unset();
-    session_destroy();
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_unset();
+        session_destroy();
+    }
+
+    // Borrar cookie de sesion (PHPSESSID).
+    $params = session_get_cookie_params();
+    if (PHP_VERSION_ID >= 70300) {
+        setcookie(session_name(), '', [
+            'expires' => time() - 3600,
+            'path' => $params['path'] ?: '/',
+            'domain' => $params['domain'] ?? '',
+            'secure' => (bool)($params['secure'] ?? $isHttps),
+            'httponly' => (bool)($params['httponly'] ?? true),
+            'samesite' => $params['samesite'] ?? 'Lax'
+        ]);
+    } else {
+        setcookie(
+            session_name(),
+            '',
+            time() - 3600,
+            $params['path'] ?: '/',
+            $params['domain'] ?? '',
+            (bool)($params['secure'] ?? $isHttps),
+            (bool)($params['httponly'] ?? true)
+        );
+    }
 }
 
 function isLoggedIn(): bool {
@@ -55,7 +84,7 @@ function getCurrentUser(): ?string {
 
 function requireAuth(): void {
     if (!isLoggedIn()) {
-        header('Location: ' . BASE_URL . '/view/login.php');
+        header('Location: ' . BASE_URL . '/view/plantillas/login.php');
         exit;
     }
 }

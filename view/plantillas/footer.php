@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../../config/base.php';
 require_once __DIR__ . '/../../config/session.php';
 require_once __DIR__ . '/../../config/auth.php';
@@ -47,7 +47,7 @@ require_once __DIR__ . '/../../config/auth.php';
     </div>
 
     <div class="text-center small mt-3 border-top pt-3">
-      2024 MiSitio. Todos los derechos reservados.
+      2026 Recealia. Todos los derechos reservados.
     </div>
   </div>
 </footer>

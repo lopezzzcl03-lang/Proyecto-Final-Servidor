@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../config/base.php';
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/auth.php';
@@ -11,6 +11,12 @@ if (!isLoggedIn()) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: ' . BASE_URL . '/view/agregar_recetas.php');
+    exit;
+}
+
+if (!isValidCsrfToken($_POST['csrf_token'] ?? null)) {
+    $_SESSION['receta_errors'] = ['Solicitud invalida. Recarga la pagina e intentalo de nuevo.'];
     header('Location: ' . BASE_URL . '/view/agregar_recetas.php');
     exit;
 }

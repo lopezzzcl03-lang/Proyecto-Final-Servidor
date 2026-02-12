@@ -8,6 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+if (!isValidCsrfToken($_POST['csrf_token'] ?? null)) {
+    $_SESSION['suscribete_errors'] = ['Solicitud invalida. Recarga la pagina e intentalo de nuevo.'];
+    header('Location: ' . BASE_URL . '/view/plantillas/suscribete.php');
+    exit;
+}
+
 $nombre = trim($_POST['nombre'] ?? '');
 $correo = trim($_POST['email'] ?? '');
 $privacidad = isset($_POST['privacidad']);

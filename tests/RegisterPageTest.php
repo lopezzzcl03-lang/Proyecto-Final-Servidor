@@ -6,6 +6,8 @@ class RegisterPageTest extends BaseTestCase
     public function testInvalidUserAndPasswordShowsErrors(): void
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_SESSION['csrf_token'] = 'test-token';
+        $_POST['csrf_token'] = 'test-token';
         $_POST['usuario'] = 'ab';
         $_POST['password'] = 'weak';
         $_POST['password_confirm'] = 'weak';
@@ -19,6 +21,8 @@ class RegisterPageTest extends BaseTestCase
     public function testPasswordMismatchShowsError(): void
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_SESSION['csrf_token'] = 'test-token';
+        $_POST['csrf_token'] = 'test-token';
         $_POST['usuario'] = 'Juan';
         $_POST['password'] = 'Strong1!';
         $_POST['password_confirm'] = 'Strong1?';

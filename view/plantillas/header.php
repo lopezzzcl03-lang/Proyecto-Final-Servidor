@@ -1,10 +1,11 @@
-﻿<?php
+<?php
     require_once __DIR__ . '/../../config/base.php';
     require_once __DIR__ . '/../../config/session.php';
     require_once __DIR__ . '/../../config/auth.php';
 ?>
 <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+<link href="<?= BASE_URL ?>/public/css/custom.css" rel="stylesheet">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -62,11 +63,3 @@
   </div>
 </nav>
 <?php
-  // Mostrar en la consola el conteo de veces que el usuario actual ha iniciado sesion.
-  $currentUser = getCurrentUser();
-  $loginCount = function_exists('getSessionCount') ? getSessionCount($currentUser) : ($_SESSION['login_count'] ?? 0);
-?>
-<script>
-  console.log('Session count: <?= $loginCount ?>');
-  console.log('User: <?= $currentUser ?? "(none)" ?>');
-</script>

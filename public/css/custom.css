@@ -1,0 +1,16 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-top: 0;
+    border-top: 0;
+}
+
+#adminTabs .nav-link.active,
+#adminTabs .show > .nav-link {
+    background-color: #fff;
+    color: #000 !important;
+}

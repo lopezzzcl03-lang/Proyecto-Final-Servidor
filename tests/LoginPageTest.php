@@ -16,6 +16,8 @@ class LoginPageTest extends BaseTestCase
     public function testShowsErrorOnInvalidCredentials(): void
     {
         $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_SESSION['csrf_token'] = 'test-token';
+        $_POST['csrf_token'] = 'test-token';
         $_POST['usuario'] = 'usuario';
         $_POST['password'] = 'badpass';
 

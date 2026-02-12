@@ -1,9 +1,2 @@
-<?php require_once __DIR__ . '/../../config/base.php'; ?>
-<?php
-    require_once __DIR__ . '/../../config/session.php';
-    require_once __DIR__ . '/../../config/auth.php';
+<?php require __DIR__ . '/../../controller/logout_page_controller.php'; ?>
 
-    logoutUser();
-    header('Location: ' . BASE_URL . '/index.php');
-    exit;
-?>
