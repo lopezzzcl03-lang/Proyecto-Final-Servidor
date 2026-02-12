@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/auth.php';
 require_once __DIR__ . '/../config/bd.php';
 
+// Controlador para manejar la logica de agregar una nueva receta
 if (!isLoggedIn()) {
     $_SESSION['receta_errors'] = ['Debes iniciar sesion o registrarte para compartir una receta.'];
     header('Location: ' . BASE_URL . '/view/plantillas/login.php');
@@ -69,6 +70,7 @@ try {
         }
     }
 
+    // Insertar receta en la base de datos
     $id = insertReceta($nombre, $ingredientes, $instrucciones, $categoria, $imagenBlob, $mime);
     $_SESSION['receta_success'] = 'Receta agregada correctamente.';
     header('Location: ' . BASE_URL . '/view/recetas.php?added=1');

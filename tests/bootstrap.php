@@ -1,4 +1,5 @@
 <?php
+// Pruebas automatizadas con PHPUnit.
 putenv('APP_ENV=testing');
 
 require_once __DIR__ . '/../config/session.php';

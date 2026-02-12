@@ -1,4 +1,6 @@
-<?php require __DIR__ . '/../controller/agregar_recetas_page_controller.php'; ?>
+<?php
+// Vista PHP: renderiza HTML usando variables del controlador.
+require __DIR__ . '/../controller/agregar_recetas_page_controller.php'; ?>
 <link href="<?= BASE_URL ?>/public/css/bootstrap.min.css" rel="stylesheet">
 
 <?php require_once __DIR__ . '/plantillas/header.php'; ?>

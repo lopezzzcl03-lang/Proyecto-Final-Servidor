@@ -1,4 +1,5 @@
 <?php
+// Configuracion compartida de la aplicacion.
 if (!defined('BASE_URL')) {
     $docRoot = isset($_SERVER['DOCUMENT_ROOT']) ? realpath($_SERVER['DOCUMENT_ROOT']) : '';
     $projectRoot = realpath(__DIR__ . '/..');

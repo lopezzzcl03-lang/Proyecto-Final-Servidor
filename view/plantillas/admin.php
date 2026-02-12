@@ -1,4 +1,5 @@
 <?php
+// Vista PHP: renderiza HTML usando variables del controlador.
 require __DIR__ . '/../../controller/admin_panel_controller.php';
 require_once __DIR__ . '/header.php';
 ?>

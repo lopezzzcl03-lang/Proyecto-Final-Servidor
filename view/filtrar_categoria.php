@@ -1,4 +1,6 @@
-<?php require __DIR__ . '/../controller/filtrar_categoria_page_controller.php'; ?>
+<?php
+// Vista PHP: renderiza HTML usando variables del controlador.
+require __DIR__ . '/../controller/filtrar_categoria_page_controller.php'; ?>
 <?php require_once __DIR__ . '/plantillas/header.php'; ?>
 
 <div class="container py-5">

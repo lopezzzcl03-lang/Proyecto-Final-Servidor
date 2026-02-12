@@ -1,4 +1,6 @@
-<?php require_once __DIR__ . '/config/base.php'; ?>
+<?php
+// Punto de entrada principal de la aplicacion.
+require_once __DIR__ . '/config/base.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 

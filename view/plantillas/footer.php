@@ -1,4 +1,5 @@
 <?php
+// Vista PHP: renderiza HTML usando variables del controlador.
 require_once __DIR__ . '/../../config/base.php';
 require_once __DIR__ . '/../../config/session.php';
 require_once __DIR__ . '/../../config/auth.php';

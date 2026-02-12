@@ -1,4 +1,5 @@
 <?php
+// Pruebas automatizadas con PHPUnit.
 namespace Tests;
 
 class RegisterPageTest extends BaseTestCase
