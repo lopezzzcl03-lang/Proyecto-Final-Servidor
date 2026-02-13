@@ -14,10 +14,27 @@ function loginUser(string $username, string $password): bool {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
+        $isHttps =
+            (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
+            (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+
         session_regenerate_id(true);
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['nombre'];
         $_SESSION['user_rol'] = $user['rol'] ?? 'usuario';
+
+        // Cookie visible en DevTools para identificar usuario autenticado.
+        if (PHP_VERSION_ID >= 70300) {
+            setcookie('user_name', $user['nombre'], [
+                'expires' => 0,
+                'path' => '/',
+                'secure' => $isHttps,
+                'httponly' => false,
+                'samesite' => 'Lax'
+            ]);
+        } else {
+            setcookie('user_name', $user['nombre'], 0, '/', '', $isHttps, false);
+        }
 
         try {
             $count = addSessionUser($user['nombre']);
@@ -41,6 +58,19 @@ function logoutUser(): void {
     // Borrar cookie "remember" si existe.
     if (isset($_COOKIE['remember'])) {
         setcookie('remember', '', time() - 3600, '/', '', $isHttps, true);
+    }
+
+    // Borrar cookie con nombre de usuario.
+    if (PHP_VERSION_ID >= 70300) {
+        setcookie('user_name', '', [
+            'expires' => time() - 3600,
+            'path' => '/',
+            'secure' => $isHttps,
+            'httponly' => false,
+            'samesite' => 'Lax'
+        ]);
+    } else {
+        setcookie('user_name', '', time() - 3600, '/', '', $isHttps, false);
     }
 
     // Limpiar y destruir sesion.

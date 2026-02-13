@@ -1,6 +1,8 @@
 <?php
 // Punto de entrada principal de la aplicacion.
-require_once __DIR__ . '/config/base.php'; ?>
+require_once __DIR__ . '/config/base.php';
+require_once __DIR__ . '/config/session.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 

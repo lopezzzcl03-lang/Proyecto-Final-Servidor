@@ -1,6 +1,7 @@
 <?php
 // Carga configuracion base y conexion a base de datos ($pdo).
 require_once __DIR__ . '/../config/base.php';
+require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/bd.php';
 
 // Verifica que llegue el parametro id por URL (query string).
